@@ -15,6 +15,15 @@
 
 (function_close) @keyword.function
 
+(function_return
+  "return" @keyword.return)
+
+(function_return
+  value: (identifier) @variable)
+
+(function_return
+  value: (value) @number)
+
 (ref_parameter
   "&" @operator
   name: (identifier) @variable.parameter
@@ -24,6 +33,40 @@
   "@" @operator
   name: (identifier) @variable.parameter
   type: (type) @type.builtin)
+
+(if_statement
+  "if" @keyword.conditional
+  ["=" "!=" "<" ">" "<=" ">="] @operator)
+
+(if_statement
+  lhs: (identifier) @variable)
+
+(if_statement
+  rhs: (identifier) @variable)
+
+(if_statement
+  lhs: (value) @number)
+
+(if_statement
+  rhs: (value) @number)
+
+(while_statement
+  "while" @keyword.repeat
+  ["=" "!=" "<" ">" "<=" ">="] @operator)
+
+(while_statement
+  lhs: (identifier) @variable)
+
+(while_statement
+  rhs: (identifier) @variable)
+
+(while_statement
+  lhs: (value) @number)
+
+(while_statement
+  rhs: (value) @number)
+
+(end_block) @keyword.control
 
 (unary_assignment
   target: (identifier) @variable
@@ -84,3 +127,23 @@
 (get_array
   [":" "<-"] @operator)
 
+(array_size
+  target: (identifier) @variable
+  "sizeof" @keyword
+  name: (identifier) @variable)
+
+(clear_array
+  "free" @keyword
+  name: (identifier) @variable)
+
+(cat
+  "cat" @keyword
+  target: (identifier) @variable)
+
+(cat
+  "const" @keyword
+  value: (string) @string)
+
+(cat
+  "string" @keyword
+  value: (identifier) @variable)

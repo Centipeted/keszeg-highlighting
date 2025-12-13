@@ -1,5 +1,31 @@
 [
   {
+    "type": "array_size",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "binary_assignment",
     "named": true,
     "fields": {
@@ -44,6 +70,52 @@
     }
   },
   {
+    "type": "cat",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "clear_array",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function_definition",
     "named": true,
     "fields": {
@@ -70,6 +142,26 @@
     }
   },
   {
+    "type": "function_return",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "get_array",
     "named": true,
     "fields": {
@@ -93,6 +185,40 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "if_statement",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
             "named": true
           }
         ]
@@ -228,7 +354,23 @@
       "required": true,
       "types": [
         {
+          "type": "array_size",
+          "named": true
+        },
+        {
           "type": "binary_assignment",
+          "named": true
+        },
+        {
+          "type": "cat",
+          "named": true
+        },
+        {
+          "type": "clear_array",
+          "named": true
+        },
+        {
+          "type": "end_block",
           "named": true
         },
         {
@@ -240,7 +382,15 @@
           "named": true
         },
         {
+          "type": "function_return",
+          "named": true
+        },
+        {
           "type": "get_array",
+          "named": true
+        },
+        {
+          "type": "if_statement",
           "named": true
         },
         {
@@ -253,6 +403,10 @@
         },
         {
           "type": "variable_definition",
+          "named": true
+        },
+        {
+          "type": "while_statement",
           "named": true
         }
       ]
@@ -346,7 +500,45 @@
     }
   },
   {
+    "type": "while_statement",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "\n",
+    "named": false
+  },
+  {
+    "type": "!=",
     "named": false
   },
   {
@@ -402,11 +594,27 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
     "type": "<-",
     "named": false
   },
   {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
     "named": false
   },
   {
@@ -418,9 +626,21 @@
     "named": false
   },
   {
+    "type": "cat",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "const",
+    "named": false
+  },
+  {
+    "type": "end_block",
+    "named": true
   },
   {
     "type": "farray",
@@ -428,6 +648,10 @@
   },
   {
     "type": "float",
+    "named": false
+  },
+  {
+    "type": "free",
     "named": false
   },
   {
@@ -447,8 +671,24 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "int",
     "named": false
+  },
+  {
+    "type": "return",
+    "named": false
+  },
+  {
+    "type": "sizeof",
+    "named": false
+  },
+  {
+    "type": "string",
+    "named": true
   },
   {
     "type": "string",
@@ -457,5 +697,9 @@
   {
     "type": "value",
     "named": true
+  },
+  {
+    "type": "while",
+    "named": false
   }
 ]
