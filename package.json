@@ -1,0 +1,14 @@
+{
+  "name": "keszeg-treesitter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate": "tree-sitter generate"
+  },
+  "author": "",
+  "type": "commonjs",
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.10"
+  }
+}
