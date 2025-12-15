@@ -184,6 +184,29 @@
   {
     "type": "function_definition",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_close",
+          "named": true
+        },
+        {
+          "type": "function_header",
+          "named": true
+        },
+        {
+          "type": "line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_header",
+    "named": true,
     "fields": {
       "name": {
         "multiple": false,
@@ -258,7 +281,7 @@
     }
   },
   {
-    "type": "if_statement",
+    "type": "if_header",
     "named": true,
     "fields": {
       "lhs": {
@@ -292,6 +315,29 @@
     }
   },
   {
+    "type": "if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_block",
+          "named": true
+        },
+        {
+          "type": "if_header",
+          "named": true
+        },
+        {
+          "type": "line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "input",
     "named": true,
     "fields": {
@@ -316,7 +362,19 @@
       "required": true,
       "types": [
         {
+          "type": "function_definition",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
           "named": true
         }
       ]
@@ -590,10 +648,6 @@
           "named": true
         },
         {
-          "type": "end_block",
-          "named": true
-        },
-        {
           "type": "exec",
           "named": true
         },
@@ -602,23 +656,11 @@
           "named": true
         },
         {
-          "type": "function_close",
-          "named": true
-        },
-        {
-          "type": "function_definition",
-          "named": true
-        },
-        {
           "type": "function_return",
           "named": true
         },
         {
           "type": "get_array",
-          "named": true
-        },
-        {
-          "type": "if_statement",
           "named": true
         },
         {
@@ -654,11 +696,11 @@
           "named": true
         },
         {
-          "type": "variable_definition",
+          "type": "unknown",
           "named": true
         },
         {
-          "type": "while_statement",
+          "type": "variable_definition",
           "named": true
         }
       ]
@@ -771,7 +813,7 @@
     }
   },
   {
-    "type": "while_statement",
+    "type": "while_header",
     "named": true,
     "fields": {
       "lhs": {
@@ -802,6 +844,29 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "while_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "end_block",
+          "named": true
+        },
+        {
+          "type": "line",
+          "named": true
+        },
+        {
+          "type": "while_header",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1015,6 +1080,10 @@
   },
   {
     "type": "string_fragment",
+    "named": true
+  },
+  {
+    "type": "unknown",
     "named": true
   },
   {

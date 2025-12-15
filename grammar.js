@@ -12,20 +12,24 @@ module.exports = grammar({
       optional($.line)
     ),
 
-    line: $ => seq(
-      $.statement,
-      repeat(seq(',', $.statement))
+    line: $ => choice(
+      $._block_statement,
+      seq(
+        $.statement,
+        repeat(seq(',', $.statement))
+      )
     ),
-    
+
+    _block_statement: $ => choice(
+      $.function_definition,
+      $.if_statement,
+      $.while_statement
+    ),
+
     statement: $ => choice(
       $.variable_definition,
-      $.function_definition,
-      $.function_close,
       $.function_call,
       $.function_return,
-      $.if_statement,
-      $.while_statement,
-      $.end_block,
       $.unary_assignment,
       $.binary_assignment,
       $.set_array,
@@ -40,7 +44,8 @@ module.exports = grammar({
       $.load,
       $.random,
       $.sleep,
-      $.exec
+      $.exec,
+      $.unknown
     ),
 
     variable_definition: $ => seq(
@@ -49,10 +54,17 @@ module.exports = grammar({
       field('type', $.type)
     ),
 
-    function_definition: $ => seq(
+    function_header: $ => seq(
       'fun',
       field('name', $.identifier),
       repeat($.parameter)
+    ),
+
+    function_definition: $ => seq(
+      $.function_header,
+      '\n',
+      repeat(seq(optional($.line), '\n')),
+      $.function_close
     ),
 
     function_close: $ => 'ef',
@@ -74,19 +86,33 @@ module.exports = grammar({
         field('value', $.value)
       ))
     ),
-
-    if_statement: $ => seq(
+    
+    if_header: $ => seq(
       'if',
       field('lhs', choice($.identifier, $.value)),
       choice('=', '!=', '<', '>', '<=', '>='),
       field('rhs', choice($.identifier, $.value))
     ),
 
-    while_statement: $ => seq(
+    if_statement: $ => seq(
+      $.if_header,
+      '\n',
+      repeat(seq(optional($.line), '\n')),
+      $.end_block
+    ),
+
+    while_header: $ => seq(
       'while',
       field('lhs', choice($.identifier, $.value)),
       choice('=', '!=', '<', '>', '<=', '>='),
       field('rhs', choice($.identifier, $.value))
+    ),
+
+    while_statement: $ => seq(
+      $.while_header,
+      '\n',
+      repeat(seq(optional($.line), '\n')),
+      $.end_block
     ),
 
     end_block: $ => 'end',
@@ -246,7 +272,6 @@ module.exports = grammar({
     type: $ => choice('int', 'float', 'byte', 'iarray', 'farray', 'string'),
 
     comment: $ => token(seq('#', /.*/)),
-    unknown: $ => token(prec(-1, /[^\n,]+/)),
+    unknown: $ => token(prec(-10, /[^\n,]+/)),
   },
 });
-

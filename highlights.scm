@@ -13,10 +13,10 @@
 (variable_definition
   ["@" "&"] @operator)
 
-(function_definition
+(function_header
   name: (identifier) @function)
 
-(function_definition
+(function_header
   "fun" @keyword.function)
 
 (function_close) @keyword.function
@@ -54,36 +54,36 @@
   name: (identifier) @variable.parameter
   type: (type) @type.builtin)
 
-(if_statement
+(if_header
   "if" @keyword.conditional
   ["=" "!=" "<" ">" "<=" ">="] @operator)
 
-(if_statement
+(if_header
   lhs: (identifier) @variable)
 
-(if_statement
+(if_header
   rhs: (identifier) @variable)
 
-(if_statement
+(if_header
   lhs: (value) @number)
 
-(if_statement
+(if_header
   rhs: (value) @number)
 
-(while_statement
+(while_header
   "while" @keyword.repeat
   ["=" "!=" "<" ">" "<=" ">="] @operator)
 
-(while_statement
+(while_header
   lhs: (identifier) @variable)
 
-(while_statement
+(while_header
   rhs: (identifier) @variable)
 
-(while_statement
+(while_header
   lhs: (value) @number)
 
-(while_statement
+(while_header
   rhs: (value) @number)
 
 (end_block) @keyword.control
