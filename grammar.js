@@ -21,6 +21,7 @@ module.exports = grammar({
       $.variable_definition,
       $.function_definition,
       $.function_close,
+      $.function_call,
       $.function_return,
       $.if_statement,
       $.while_statement,
@@ -32,7 +33,14 @@ module.exports = grammar({
       $.array_size,
       $.clear_array,
       $.cat,
-      //$.unknown
+      $.print,
+      $.input,
+      $.clear,
+      $.save,
+      $.load,
+      $.random,
+      $.sleep,
+      $.exec
     ),
 
     variable_definition: $ => seq(
@@ -51,7 +59,20 @@ module.exports = grammar({
 
     function_return: $ => seq(
       'return',
-      field('value', optional(choice($.identifier, $.value)))
+      optional(field('value', choice($.identifier, $.value)))
+    ),
+
+    function_call: $ => seq(
+      optional(seq(
+        field('target', $.identifier),
+        '<-'
+      )),
+      'call',
+      field('name', $.identifier),
+      repeat(choice(
+        field('value', $.identifier),
+        field('value', $.value)
+      ))
     ),
 
     if_statement: $ => seq(
@@ -138,6 +159,60 @@ module.exports = grammar({
       )
     ),
 
+    print: $ => seq(
+      choice('print', 'println'),
+      choice(
+        seq('$', field('value', $.identifier)),
+        seq('ascii', field('value', $.identifier)),
+        seq('string', field('value', $.identifier)),
+        seq('const', field('value', $.string))
+      )
+    ),
+    
+    input: $ => seq(
+      'input',
+      choice(
+        seq('$', field('value', $.identifier)),
+        seq('ascii', field('value', $.identifier)),
+        seq('string', field('value', $.identifier)),
+      )
+    ),
+
+    clear: $ => 'clear',
+
+    save: $ => seq(
+      'save',
+      field('type', $.type),
+      field('value', $.identifier),
+      field('path', $.string)
+    ),
+
+    load: $ => seq(
+      'load',
+      field('type', $.type),
+      field('target', $.identifier),
+      field('path', $.string)
+    ),
+
+    random: $ => seq(
+      'random',
+      field('target', $.identifier),
+      field('value', $.value)
+    ),
+
+    sleep: $ => seq(
+      'sleep',
+      field('value', $.value)
+    ),
+
+    exec: $ => seq(
+      'exec',
+      choice(
+        seq('const', field('value', $.string)),
+        seq('string', field('name', $.identifier))
+      )
+    ),
+
     parameter: $ => choice(
       $.ref_parameter,
       $.val_parameter,
@@ -157,7 +232,16 @@ module.exports = grammar({
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
     value: $ => /(?:[0-9]+\.[0-9]+(?:f)?|[0-9]+(?:b|f)?)/,
-    string: $ => token(/[^,#\n]+/),
+
+    escape_sequence: $ => token(prec(2, /\\[ntsch]/)),
+    string_fragment: $ => token(prec(1, /[^\\,#\n]+/)),
+
+    string: $ => seq(
+      repeat1(choice(
+        $.escape_sequence,
+        $.string_fragment
+      ))
+    ),
 
     type: $ => choice('int', 'float', 'byte', 'iarray', 'farray', 'string'),
 

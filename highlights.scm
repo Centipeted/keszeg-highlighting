@@ -1,5 +1,11 @@
 (comment) @comment
 
+(string
+  (escape_sequence) @string.escape)
+
+(string
+  (string_fragment) @string)
+
 (variable_definition
   name: (identifier) @variable
   type: (type) @type.builtin)
@@ -22,6 +28,20 @@
   value: (identifier) @variable)
 
 (function_return
+  value: (value) @number)
+
+(function_call
+  "call" @keyword.function
+  name: (identifier) @function.call)
+
+(function_call
+  target: (identifier) @variable
+  "<-" @operator)
+
+(function_call
+  value: (identifier) @variable)
+
+(function_call
   value: (value) @number)
 
 (ref_parameter
@@ -141,9 +161,59 @@
   target: (identifier) @variable)
 
 (cat
-  "const" @keyword
-  value: (string) @string)
+  "const" @keyword.operator)
 
 (cat
-  "string" @keyword
+  "string" @keyword.operator
   value: (identifier) @variable)
+
+(print
+  ["print" "println"] @keyword
+  ["$" "ascii" "string" "const"] @keyword.operator)
+
+(print
+  value: (identifier) @variable)
+
+(input
+  "input" @keyword
+  ["$" "ascii" "string"] @keyword.operator
+  value: (identifier) @variable)
+
+(clear) @keyword
+
+(save
+  "save" @keyword
+  type: (type) @type.builtin
+  value: (identifier) @variable)
+
+((save
+  path: (string) @string.special.path)
+  (#set! "priority" 110))
+
+(load
+  "load" @keyword
+  type: (type) @type.builtin
+  target: (identifier) @variable)
+
+((load
+  path: (string) @string.special.path)
+  (#set! "priority" 110))
+
+(random
+  "random" @keyword
+  target: (identifier) @variable
+  value: (value) @number)
+
+(sleep
+  "sleep" @keyword
+  value: (value) @number)
+
+(exec
+  "exec" @keyword)
+
+(exec
+  "const" @keyword.operator)
+
+(exec
+  "string" @keyword.operator
+  name: (identifier) @variable)

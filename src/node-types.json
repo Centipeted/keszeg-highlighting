@@ -116,6 +116,72 @@
     }
   },
   {
+    "type": "exec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function_definition",
     "named": true,
     "fields": {
@@ -226,6 +292,22 @@
     }
   },
   {
+    "type": "input",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "line",
     "named": true,
     "fields": {},
@@ -238,6 +320,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "load",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -260,6 +378,52 @@
     }
   },
   {
+    "type": "print",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "random",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "ref_parameter",
     "named": true,
     "fields": {
@@ -279,6 +443,42 @@
         "types": [
           {
             "type": "type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "save",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -330,6 +530,22 @@
     }
   },
   {
+    "type": "sleep",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -366,11 +582,23 @@
           "named": true
         },
         {
+          "type": "clear",
+          "named": true
+        },
+        {
           "type": "clear_array",
           "named": true
         },
         {
           "type": "end_block",
+          "named": true
+        },
+        {
+          "type": "exec",
+          "named": true
+        },
+        {
+          "type": "function_call",
           "named": true
         },
         {
@@ -394,7 +622,31 @@
           "named": true
         },
         {
+          "type": "input",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "print",
+          "named": true
+        },
+        {
+          "type": "random",
+          "named": true
+        },
+        {
+          "type": "save",
+          "named": true
+        },
+        {
           "type": "set_array",
+          "named": true
+        },
+        {
+          "type": "sleep",
           "named": true
         },
         {
@@ -407,6 +659,25 @@
         },
         {
           "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "string_fragment",
           "named": true
         }
       ]
@@ -542,6 +813,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "%",
     "named": false
   },
@@ -622,12 +897,24 @@
     "named": false
   },
   {
+    "type": "ascii",
+    "named": false
+  },
+  {
     "type": "byte",
+    "named": false
+  },
+  {
+    "type": "call",
     "named": false
   },
   {
     "type": "cat",
     "named": false
+  },
+  {
+    "type": "clear",
+    "named": true
   },
   {
     "type": "comment",
@@ -641,6 +928,14 @@
   {
     "type": "end_block",
     "named": true
+  },
+  {
+    "type": "escape_sequence",
+    "named": true
+  },
+  {
+    "type": "exec",
+    "named": false
   },
   {
     "type": "farray",
@@ -675,7 +970,27 @@
     "named": false
   },
   {
+    "type": "input",
+    "named": false
+  },
+  {
     "type": "int",
+    "named": false
+  },
+  {
+    "type": "load",
+    "named": false
+  },
+  {
+    "type": "print",
+    "named": false
+  },
+  {
+    "type": "println",
+    "named": false
+  },
+  {
+    "type": "random",
     "named": false
   },
   {
@@ -683,16 +998,24 @@
     "named": false
   },
   {
+    "type": "save",
+    "named": false
+  },
+  {
     "type": "sizeof",
     "named": false
   },
   {
-    "type": "string",
-    "named": true
+    "type": "sleep",
+    "named": false
   },
   {
     "type": "string",
     "named": false
+  },
+  {
+    "type": "string_fragment",
+    "named": true
   },
   {
     "type": "value",
